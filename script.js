@@ -24,13 +24,12 @@ $(document).ready(function () {
         console.log('I heard the click!');
 
         var taskNumber = parseInt($(this).parent('div').attr('id').split('hour-')[1]);
-        // Why does taskItem come back as an empty string when saved to local storage? Yes, I have typed into the textarea, and clicked the save button.
         var taskItem = $(this).siblings('textarea').val();
-        var taskList = JSON.parse(localStorage.getItem("taskList")) || [];
+        //var taskList = JSON.parse(localStorage.getItem("taskList")) || [];
 
-        console.log(taskList);
+        //console.log(taskList);
 
-        var newTask = {
+      /*   var newTask = {
           number: taskNumber,
           task: taskItem
         };
@@ -39,11 +38,11 @@ $(document).ready(function () {
           taskList.push(newTask);
         } else {
           taskList.push(newTask)
-        };
+        }; */
 
         localStorage.setItem(taskNumber, taskItem);
 
-        console.log(taskList);
+       // console.log(taskList);
         console.log("See the tasks?");
 
       });
@@ -64,14 +63,14 @@ $(document).ready(function () {
   function setColor() {
 
     $('.time-block').each(function () {
-
+      //Used the parseInt to split the id attribut to just an integer, to make it comparable to the current Hour variable.
       var blockNumber = parseInt($(this).attr('id').split('hour-')[1]);
 
       if (blockNumber < currentHour) {
         $(this).removeClass('present');
         $(this).removeClass('future');
         $(this).addClass('past');
-        //Why is the current hour block not displaying in red?
+        //Originally had blockNumber === currentHour, but because currentHour was a string, the styling for present wouldn't work.  Changed to ==, and conditional worked.
       } else if (blockNumber == currentHour) {
         $(this).removeClass('future');
         $(this).removeClass('past');
@@ -84,6 +83,7 @@ $(document).ready(function () {
 
       console.log(currentHour);
       console.log(blockNumber);
+      // Added the below console.log to determine the data type of first blockNumber, then currentHour, to troubleshoot the conditionals.
       console.log('blockNumber data type: ' + typeof currentHour);
     })
   }
@@ -96,20 +96,12 @@ $(document).ready(function () {
 
 
   function getTasks() {
-    //JSON.parse(localStorage.getItem(taskList));
-
+    
     var tasks = document.querySelectorAll('.description');
 
     for (let i = 0; i < tasks.length; i++) {
       tasks[i].value = localStorage.getItem(i + 9);
-
     }
-
-    //console.log(taskList);
-
-
-
-
   }
 
   getTasks();
