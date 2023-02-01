@@ -24,14 +24,14 @@ $(document).ready(function () {
         console.log('I heard the click!');
 
         var taskNumber = parseInt($(this).parent('div').attr('id').split('hour-')[1]);
-        var taskItem = $('textarea.description').val();
-
+        // Why does taskItem come back as an empty string when saved to local storage? Yes, I have typed into the textarea, and clicked the save button.
+        var taskItem = $(this).siblings('textarea').val();
         var taskList = JSON.parse(localStorage.getItem("taskList")) || [];
 
         console.log(taskList);
 
         var newTask = {
-          key: taskNumber,
+          number: taskNumber,
           task: taskItem
         };
 
@@ -41,7 +41,7 @@ $(document).ready(function () {
           taskList.push(newTask)
         };
 
-        localStorage.setItem("taskList", JSON.stringify(taskList));
+        localStorage.setItem(taskNumber, taskItem);
 
         console.log(taskList);
         console.log("See the tasks?");
@@ -71,11 +71,12 @@ $(document).ready(function () {
         $(this).removeClass('present');
         $(this).removeClass('future');
         $(this).addClass('past');
-      } else if (blockNumber === currentHour) {
+        //Why is the current hour block not displaying in red?
+      } else if (blockNumber == currentHour) {
         $(this).removeClass('future');
         $(this).removeClass('past');
         $(this).addClass('present');
-      } else if (blockNumber > currentHour) {
+      } else {
         $(this).removeClass('past');
         $(this).removeClass('present');
         $(this).addClass('future');
@@ -83,7 +84,7 @@ $(document).ready(function () {
 
       console.log(currentHour);
       console.log(blockNumber);
-
+      console.log('blockNumber data type: ' + typeof currentHour);
     })
   }
 
@@ -92,17 +93,26 @@ $(document).ready(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  function getTasks() {
-    JSON.parse(localStorage.getItem(taskList));
 
-    console.log(taskList);
+
+  function getTasks() {
+    //JSON.parse(localStorage.getItem(taskList));
+
+    var tasks = document.querySelectorAll('.description');
+
+    for (let i = 0; i < tasks.length; i++) {
+      tasks[i].value = localStorage.getItem(i + 9);
+
+    }
+
+    //console.log(taskList);
 
 
 
 
   }
 
+  getTasks();
 
-  // TODO: Add code to display the current date in the header of the page.
   $('#currentDay').text(currentDay);
 });
