@@ -15,22 +15,13 @@
 
 <body>
   <header class="p-5 mb-4 border-5 border-bottom border-dark text-center">
+    <!-- Changed the title -->
     <h1 class="display-3">What's the plan?</h1>
     <p class="lead">A simple calendar app for scheduling your work day</p>
     <p id="currentDay" class="lead"></p>
   </header>
   <div class="container-lg px-5">
-    <!-- Use class for "past", "present", and "future" to apply styles to the
-        time-block divs accordingly. The javascript will need to do this by
-        adding/removing these classes on each div by comparing the hour in the
-        id to the current hour. The html provided below is meant to be an example
-        demonstrating how the css provided can be leveraged to create the
-        desired layout and colors. The html below should be removed or updated
-        in the finished product. Remember to delete this comment once the
-        code is implemented.
-        -->
 
-    <!-- Example of a past time block. The "past" class adds a gray background color. -->
     <div id="hour-9" class="row time-block past">
       <div class="col-2 col-md-1 hour text-center py-3">9AM</div>
       <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
@@ -39,7 +30,6 @@
       </button>
     </div>
 
-    <!-- Example of a a present time block. The "present" class adds a red background color. -->
     <div id="hour-10" class="row time-block present">
       <div class="col-2 col-md-1 hour text-center py-3">10AM</div>
       <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
@@ -48,7 +38,7 @@
       </button>
     </div>
 
-    <!-- Example of a future time block. The "future" class adds a green background color. -->
+    <!--  Created time blocks for each hour of the workday, used ids for each div in the 24 hour clock to facilitate easier hour comparisons for the styling changes. Using a separate div for each hour made the code easier for me to understand now, though as skills improve, I could see using the javascript to actually create the divs.-->
     <div id="hour-11" class="row time-block future">
       <div class="col-2 col-md-1 hour text-center py-3">11AM</div>
       <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
